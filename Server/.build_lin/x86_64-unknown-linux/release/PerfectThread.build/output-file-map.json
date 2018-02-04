@@ -1,0 +1,22 @@
+{
+  "": {
+    "dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/PerfectThread.d",
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/PerfectThread.o",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/master.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Thread.git-9183994822260233353/Sources/Promise.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/Promise.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/Promise~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/Promise.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Thread.git-9183994822260233353/Sources/Threading.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/Threading.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/Threading~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/Threading.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Thread.git-9183994822260233353/Sources/ThreadQueue.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/ThreadQueue.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/ThreadQueue~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectThread.build/ThreadQueue.swiftdeps"
+  }
+}

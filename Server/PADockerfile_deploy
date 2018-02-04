@@ -1,0 +1,4 @@
+FROM perfectassistant/htserver:latest
+COPY .build_lin/release/HTServer /perfect-deployed/htserver/
+RUN rm -rf /var/lib/apt/lists/*
+CMD cd /perfect-deployed/htserver/ && ./HTServer

@@ -1,0 +1,42 @@
+{
+  "": {
+    "dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/PerfectCrypto.d",
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/PerfectCrypto.o",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/master.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/Algorithms.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Algorithms.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Algorithms~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Algorithms.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/ByteIO.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/ByteIO.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/ByteIO~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/ByteIO.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/Extensions.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Extensions.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Extensions~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Extensions.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/JWT.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/JWT.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/JWT~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/JWT.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/Keys.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Keys.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Keys~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/Keys.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/OpenSSLInternal.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/OpenSSLInternal.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/OpenSSLInternal~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/OpenSSLInternal.swiftdeps"
+  },
+  "/perfectbuild/.build/checkouts/Perfect-Crypto.git--5329137828371812828/Sources/PerfectCrypto/PerfectCrypto.swift": {
+    "object": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/PerfectCrypto.swift.o",
+    "swiftmodule": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/PerfectCrypto~partial.swiftmodule",
+    "swift-dependencies": "/perfectbuild/.build/x86_64-unknown-linux/release/PerfectCrypto.build/PerfectCrypto.swiftdeps"
+  }
+}

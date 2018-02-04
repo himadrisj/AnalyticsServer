@@ -1,0 +1,12 @@
+[Unit]
+Description=Perfect deployed htserver
+
+[Service]
+Type=simple
+WorkingDirectory=/perfect-deployed/htserver
+ExecStart=/perfect-deployed/htserver/HTServer
+Restart=always
+PIDFile=/var/run/htserver.pid
+
+[Install]
+WantedBy=multi-user.target

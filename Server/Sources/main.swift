@@ -20,53 +20,99 @@
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
+import StORM
+import MySQLStORM
 
-// An example request handler.
-// This 'handler' function can be referenced directly in the configuration below.
-func handler(request: HTTPRequest, response: HTTPResponse) {
-	// Respond with a simple message.
-	response.setHeader(.contentType, value: "text/html")
-	response.appendBody(string: "<html><title>Yipeee!</title><body>Hello, Himadri All Fine!</body></html>")
-	// Ensure that response.completed() is called when your processing is done.
-	response.completed()
+MySQLConnector.host        = "127.0.0.1"
+MySQLConnector.username    = "perfect"
+MySQLConnector.password    = "perfect"
+MySQLConnector.database    = "perfect_testing"
+MySQLConnector.port        = 3306
+
+let setupObj = AnalyticsEvent()
+try setupObj.setup()
+
+
+let server = HTTPServer()
+server.serverPort = 8080
+
+var routes = Routes()
+
+func saveEvents(request: HTTPRequest, response: HTTPResponse) {
+    
+    do {
+        guard let json = request.postBodyString,
+            let dictArray = try json.jsonDecode() as? [[String: Any]] else {
+                response.completed(status: .badRequest)
+                return
+        }
+        
+        for dict in dictArray {
+            guard let eventType = dict[FieldValue.eventType.rawValue] as? String,
+                let appName = dict[FieldValue.appName.rawValue] as? String,
+                let appBundleId = dict[FieldValue.appBundleId.rawValue] as? String,
+                let timeStamp = dict[FieldValue.timeStamp.rawValue] as? String else {
+                    response.completed(status: .badRequest)
+                    return
+            }
+            
+            let event = AnalyticsEvent()
+            
+            //mandatory fields
+            event.eventType = eventType
+            event.appName = appName
+            event.appBundleId = appBundleId
+            event.timeStamp = timeStamp
+            
+            
+            event.viewControllerName = dict[FieldValue.viewControllerName.rawValue] as? String ?? ""
+            event.title = dict[FieldValue.title.rawValue] as? String ?? ""
+            event.controlName = dict[FieldValue.controlName.rawValue] as? String ?? ""
+            event.accessibilityIdentifier = dict[FieldValue.accessibilityIdentifier.rawValue] as? String ?? ""
+            
+            try event.save { id in
+                event.id = id as! Int
+            }
+        }
+        
+        response.completed(status: .created)
+        
+    } catch {
+        response.setBody(string: "Error handling request: \(error)")
+            .completed(status: .internalServerError)
+        }
 }
 
-// Configuration data for an example server.
-// This example configuration shows how to launch a server
-// using a configuration dictionary.
+func all(request: HTTPRequest, response: HTTPResponse) {
+    do {
+        
+        // Get all acronyms as a dictionary
+        let getObj = AnalyticsEvent()
+        try getObj.findAll()
+        var events: [[String: Any]] = []
+        for row in getObj.rows() {
+            events.append(row.asDictionary())
+        }
+        
+        try response.setBody(json: events)
+            .setHeader(.contentType, value: "application/json")
+            .completed()
+        
+    } catch {
+        response.setBody(string: "Error handling request: \(error)")
+            .completed(status: .internalServerError)
+    }
+}
 
 
-let confData = [
-	"servers": [
-		// Configuration data for one server which:
-		//	* Serves the hello world message at <host>:<port>/
-		//	* Serves static files out of the "./webroot"
-		//		directory (which must be located in the current working directory).
-		//	* Performs content compression on outgoing data when appropriate.
-		[
-			"name":"localhost",
-			"port":8181,
-			"routes":[
-				["method":"get", "uri":"/", "handler":handler],
-				["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
-				 "documentRoot":"./webroot",
-				 "allowResponseFilters":true]
-			],
-			"filters":[
-				[
-				"type":"response",
-				"priority":"high",
-				"name":PerfectHTTPServer.HTTPFilter.contentCompression,
-				]
-			]
-		]
-	]
-]
+routes.add(method: .post, uri: "/save", handler: saveEvents)
+routes.add(method: .get, uri: "/all", handler: all)
+
+server.addRoutes(routes)
 
 do {
-	// Launch the servers based on the configuration data.
-	try HTTPServer.launch(configurationData: confData)
-} catch {
-	fatalError("\(error)") // fatal error launching one of the servers
+    try server.start()
+} catch PerfectError.networkError(let err, let msg) {
+    print("Network error thrown: \(err) \(msg)")
 }
 
