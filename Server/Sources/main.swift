@@ -2,7 +2,7 @@
 //  main.swift
 //  PerfectTemplate
 //
-//  Created by Kyle Jessup on 2015-11-05.
+//  Created by Himadri Jyoti on 2018-02-03.
 //	Copyright (C) 2015 PerfectlySoft, Inc.
 //
 //===----------------------------------------------------------------------===//
@@ -23,10 +23,38 @@ import PerfectHTTPServer
 import StORM
 import MySQLStORM
 
+extension MySQLStORM {
+    func findAllSorted() throws {
+        do {
+            let cursor = StORMCursor(limit: 20,offset: 0)
+            try select(
+                columns: [],
+                whereclause: "1",
+                params: [],
+                orderby: ["timeStamp DESC"],
+                cursor: cursor
+            )
+        } catch {
+            throw StORMError.error("\(error)")
+        }
+    }
+}
+
+//Local
+/*
 MySQLConnector.host        = "127.0.0.1"
-MySQLConnector.username    = "perfect"
-MySQLConnector.password    = "perfect"
-MySQLConnector.database    = "perfect_testing"
+MySQLConnector.username    = "perfect1"
+MySQLConnector.password    = "perfect1"
+MySQLConnector.database    = "perfecttesting"
+MySQLConnector.port        = 3306
+ */
+
+
+//Production
+MySQLConnector.host        = "perfecttesting.c1dlcbx8snw4.us-east-1.rds.amazonaws.com"
+MySQLConnector.username    = "perfect1"
+MySQLConnector.password    = "perfect1"
+MySQLConnector.database    = "perfecttesting"
 MySQLConnector.port        = 3306
 
 let setupObj = AnalyticsEvent()
@@ -37,6 +65,14 @@ let server = HTTPServer()
 server.serverPort = 8080
 
 var routes = Routes()
+
+func test(request: HTTPRequest, response: HTTPResponse) {
+    // Respond with a simple message.
+    response.setHeader(.contentType, value: "text/html")
+    response.appendBody(string: "<html><title>Working!</title><body>Server is up and running!</body></html>")
+    // Ensure that response.completed() is called when your processing is done.
+    response.completed(status: .ok)
+}
 
 func saveEvents(request: HTTPRequest, response: HTTPResponse) {
     
@@ -88,7 +124,7 @@ func all(request: HTTPRequest, response: HTTPResponse) {
         
         // Get all acronyms as a dictionary
         let getObj = AnalyticsEvent()
-        try getObj.findAll()
+        try getObj.findAllSorted()
         var events: [[String: Any]] = []
         for row in getObj.rows() {
             events.append(row.asDictionary())
@@ -105,6 +141,7 @@ func all(request: HTTPRequest, response: HTTPResponse) {
 }
 
 
+routes.add(method: .get, uri: "/test", handler: test)
 routes.add(method: .post, uri: "/save", handler: saveEvents)
 routes.add(method: .get, uri: "/all", handler: all)
 
@@ -115,4 +152,6 @@ do {
 } catch PerfectError.networkError(let err, let msg) {
     print("Network error thrown: \(err) \(msg)")
 }
+
+
 

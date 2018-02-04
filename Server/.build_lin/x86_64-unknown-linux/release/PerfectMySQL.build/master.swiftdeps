@@ -1,5 +1,0 @@
-version: "Swift version 4.0 (swift-4.0-RELEASE)"
-options: "e41e8eb7d943bba28a4573942c5fb630"
-build_time: [1517761955, 992239842]
-inputs:
-  "/perfectbuild/.build/checkouts/Perfect-MySQL.git-8211646511929471929/Sources/PerfectMySQL.swift": [9223372036, 854775807]
