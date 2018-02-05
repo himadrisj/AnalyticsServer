@@ -40,15 +40,14 @@ extension MySQLStORM {
     }
 }
 
-//Local
 /*
+//Local
 MySQLConnector.host        = "127.0.0.1"
 MySQLConnector.username    = "perfect1"
 MySQLConnector.password    = "perfect1"
 MySQLConnector.database    = "perfecttesting"
 MySQLConnector.port        = 3306
  */
-
 
 //Production
 MySQLConnector.host        = "perfecttesting.c1dlcbx8snw4.us-east-1.rds.amazonaws.com"
@@ -59,12 +58,6 @@ MySQLConnector.port        = 3306
 
 let setupObj = AnalyticsEvent()
 try setupObj.setup()
-
-
-let server = HTTPServer()
-server.serverPort = 8080
-
-var routes = Routes()
 
 func test(request: HTTPRequest, response: HTTPResponse) {
     // Respond with a simple message.
@@ -141,16 +134,39 @@ func all(request: HTTPRequest, response: HTTPResponse) {
 }
 
 
-routes.add(method: .get, uri: "/test", handler: test)
-routes.add(method: .post, uri: "/save", handler: saveEvents)
-routes.add(method: .get, uri: "/all", handler: all)
-
-server.addRoutes(routes)
+let confData = [
+        "servers": [
+                // Configuration data for one server which:
+                //    * Serves the hello world message at <host>:<port>/
+                //    * Serves static files out of the "./webroot"
+                //        directory (which must be located in the current working directory).
+                //    * Performs content compression on outgoing data when appropriate.
+                [
+                    "name":"localhost",
+                    "port":8080,
+                    "routes":[
+                        ["method":"get", "uri":"/test", "handler":test],
+                        ["method":"post", "uri":"/save", "handler":saveEvents],
+                        ["method":"get", "uri":"/all", "handler":all],
+                        ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
+                         "documentRoot":"./webroot",
+                         "allowResponseFilters":true]
+                    ],
+                    "filters":[
+                        [
+                        "type":"response",
+                        "priority":"high",
+                        "name":PerfectHTTPServer.HTTPFilter.contentCompression,
+                        ]
+                    ]
+                ]
+            ]
+    ]
 
 do {
-    try server.start()
-} catch PerfectError.networkError(let err, let msg) {
-    print("Network error thrown: \(err) \(msg)")
+    try HTTPServer.launch(configurationData: confData)
+} catch {
+    fatalError("\(error)") // fatal error launching one of the servers
 }
 
 
